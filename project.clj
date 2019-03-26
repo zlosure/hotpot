@@ -15,6 +15,7 @@
                    :global-vars {*assert* true}
                    :dependencies [[org.clojure/tools.namespace "0.2.11"]
                                   [lein-project-version "0.1.0"]]
+                   :plugins [[cider/cider-nrepl "0.21.1"]]
                    :repl-options {:host "0.0.0.0"
                                   :port 55555
                                   :timeout 3000}}
