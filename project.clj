@@ -4,6 +4,8 @@
   :license {:name ""
             :url ""}
   :dependencies [[aero "1.0.3"]
+                 [com.stuartsierra/component "0.4.0"]
+                 [com.taoensso/timbre "4.10.0"]
                  [nrepl "0.6.0"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.3.5"]
