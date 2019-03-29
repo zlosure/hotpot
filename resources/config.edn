@@ -1,4 +1,6 @@
-{:env-config
+{:aeron {:config-uri #profile {:default #env AERON_CONFIG_URI}}
+
+ :env-config
  {:onyx/tenancy-id #profile {:default "1"
                              :docker #env ONYX_ID}
   :zookeeper/address #profile {:default "127.0.0.1:2188"
