@@ -9,7 +9,7 @@
                  [fundingcircle/jackdaw "0.6.4"]
                  [io.aeron/aeron-all "1.17.0"]
                  [nrepl "0.6.0"]
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.onyxplatform/onyx "0.14.1"]
                  [org.onyxplatform/lib-onyx "0.14.0.0"]
