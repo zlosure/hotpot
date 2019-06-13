@@ -8,7 +8,6 @@ pom.xml.asc
 *.class
 /.lein-*
 /.nrepl-port
-onyx.log*
 hs_err_pid*
 .#*
 .DS_Store

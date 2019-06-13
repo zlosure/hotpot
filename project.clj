@@ -7,12 +7,9 @@
                  [com.stuartsierra/component "0.4.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [fundingcircle/jackdaw "0.6.4"]
-                 [io.aeron/aeron-all "1.17.0"]
                  [nrepl "0.6.0"]
                  [org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.cli "0.3.5"]
-                 [org.onyxplatform/onyx "0.14.1"]
-                 [org.onyxplatform/lib-onyx "0.14.0.0"]
                  [prismatic/schema "1.1.10"]]
   :source-paths ["src"]
 
@@ -27,7 +24,6 @@
                                   :timeout 3000}
                    :source-paths ["dev"]}
 
-             :uberjar {:aot [lib-onyx.media-driver
-                             hotpot.core]
+             :uberjar {:aot [hotpot.core]
                        :uberjar-name "peer.jar"
                        :global-vars {*assert* false}}})
