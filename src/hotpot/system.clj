@@ -3,6 +3,7 @@
             [clojure.java.io :as io]
             [com.stuartsierra.component :as component]
             [jackdaw.streams :as kstreams]
+            [taoensso.timbre :refer [info]]
             [jackdaw.serdes.edn]
             [jackdaw.serdes.json])
   (:import [org.rocksdb DBOptions]))
@@ -13,25 +14,25 @@
   [input-string]
   (clojure.string/split (clojure.string/lower-case input-string) #" +"))
 
-(comment
-  (let [builder (kstreams/streams-builder)
-       _ (-> (kstreams/kstream builder {:topic-name "raptors-tweets"
-                                        :key-serde (jackdaw.serdes.json/serde)
-                                        :value-serde (jackdaw.serdes.json/serde)})
-             (kstreams/map-values :Text)
-             (kstreams/flat-map-values split-lines)
-             (kstreams/group-by (fn [[_ v]] v))
-             (kstreams/count)
-             (kstreams/to-kstream)
-             (kstreams/to {:topic-name "word-count"
-                           :key-serde (jackdaw.serdes.json/serde)
-                           :value-serde (jackdaw.serdes.json/serde)}))
-       app (kstreams/kafka-streams builder
-                                   {"application.id" "streams-pipe"
-                                    "bootstrap.servers" "kafka:9092"})]
-   (kstreams/start app)
-   (Thread/sleep 2000)
-   (kstreams/close app)))
+(let [builder (kstreams/streams-builder)
+      _ (-> (kstreams/kstream builder {:topic-name "raptors-tweets"
+                                       :key-serde (jackdaw.serdes.json/serde)
+                                       :value-serde (jackdaw.serdes.json/serde)})
+            (kstreams/map-values :Text)
+            (kstreams/flat-map-values split-lines)
+            (kstreams/peek (fn [m] (info m)))
+            (kstreams/group-by (fn [[k v]] v))
+            kstreams/count
+            kstreams/to-kstream
+            (kstreams/to {:topic-name "word-count"
+                          :key-serde (jackdaw.serdes.json/serde)
+                          :value-serde (jackdaw.serdes.json/serde)}))
+      app (kstreams/kafka-streams builder
+                                  {"application.id" "streams-pipe"
+                                   "bootstrap.servers" "kafka:9092"})]
+  (kstreams/start app)
+  (Thread/sleep 2000)
+  (kstreams/close app))
 
 (defn new-system
   [profile]
